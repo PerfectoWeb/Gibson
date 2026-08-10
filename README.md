@@ -15,6 +15,7 @@ Except half of it is real. The process table, CPU load, memory pressure, disk us
 [![Swift 5](https://img.shields.io/badge/Swift-5-F05138?logo=swift&logoColor=white)](https://swift.org)
 [![MIT licence](https://img.shields.io/badge/licence-MIT-blue)](LICENSE)
 [![No dependencies](https://img.shields.io/badge/dependencies-none-1FBF6B)](#building-from-source)
+[![Homebrew](https://img.shields.io/badge/homebrew-perfectoweb%2Ftap-1FBF6B?logo=homebrew&logoColor=white)](https://github.com/PerfectoWeb/homebrew-tap)
 
 </div>
 
@@ -24,7 +25,7 @@ Except half of it is real. The process table, CPU load, memory pressure, disk us
 
 - [What you get](#what-you-get)
 - [Requirements](#requirements)
-- [Install](#install) ([illustrated walkthrough](docs/INSTALL.md))
+- [Install](#install): [Homebrew](#with-homebrew), [release](#from-a-release), [source](#from-source), [illustrated walkthrough](docs/INSTALL.md)
 - [Options](#options)
 - [Colour schemes](#colour-schemes)
 - [What is real and what is not](#what-is-real-and-what-is-not)
@@ -54,6 +55,19 @@ at a time, and a wall of falling digits.
 - Apple silicon or Intel. The bundle is universal.
 
 ## Install
+
+### With Homebrew
+
+```bash
+brew install --cask perfectoweb/tap/gibson
+```
+
+That taps, downloads the notarised bundle and drops it into
+`~/Library/Screen Savers`. Then open System Settings, go to Wallpaper, click
+**Screen Saver…**, set **Use Screen Saver** to **Custom** and pick Gibson.
+
+New versions arrive with `brew upgrade --cask`. To remove it and its
+preferences, `brew uninstall --zap --cask gibson`.
 
 ### From a release
 

@@ -6,6 +6,12 @@ All notable changes are recorded here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- Homebrew cask in [perfectoweb/tap](https://github.com/PerfectoWeb/homebrew-tap),
+  so installing is `brew install --cask perfectoweb/tap/gibson` and upgrades
+  come with everything else.
+
 ### Fixed
 
 - The published screenshots were rendered with live readings, which put the
