@@ -1,0 +1,17 @@
+build/
+.build/
+DerivedData/
+*.xcuserdatad
+xcuserdata/
+.swiftpm/
+.DS_Store
+*.saver
+
+# Rendered by `make screenshot`, not part of the repository
+docs/screenshot.png
+
+# Signing material never belongs in the repository
+*.p8
+*.p12
+*.cer
+*.mobileprovision

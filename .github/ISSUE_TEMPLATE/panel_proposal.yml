@@ -1,0 +1,37 @@
+name: Panel proposal
+description: Suggest a new panel or a change to an existing one
+labels: [enhancement, panel]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Panel name
+      placeholder: "Packet capture"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What it shows
+      description: Sketches, references or stills from films are all welcome
+    validations:
+      required: true
+
+  - type: dropdown
+    id: data
+    attributes:
+      label: Where the data comes from
+      options:
+        - Real reading from the machine
+        - Invented, purely decorative
+        - A mix of both
+    validations:
+      required: true
+
+  - type: input
+    id: slot
+    attributes:
+      label: Suggested slot size
+      description: In grid cells, the landscape layout is 12 columns by 13 rows
+      placeholder: "4 wide, 3 tall"

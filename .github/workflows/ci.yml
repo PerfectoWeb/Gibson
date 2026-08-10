@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show toolchain
+        run: swift --version
+
+      - name: Build universal bundle
+        run: make
+
+      - name: Build development tools
+        run: make build/demo build/snapshot build/cover build/banner build/motion
+
+      - name: Verify bundle structure
+        run: |
+          test -f build/Gibson.saver/Contents/MacOS/Gibson
+          test -f build/Gibson.saver/Contents/Info.plist
+          lipo -info build/Gibson.saver/Contents/MacOS/Gibson
+          codesign --verify --verbose build/Gibson.saver
+
+      - name: Upload bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: Gibson.saver
+          path: build/Gibson.saver

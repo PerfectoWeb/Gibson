@@ -1,0 +1,96 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: macos-15
+    env:
+      P12: ${{ secrets.DEVELOPER_ID_P12_BASE64 }}
+      P12_PASSWORD: ${{ secrets.DEVELOPER_ID_P12_PASSWORD }}
+      NOTARY_KEY: ${{ secrets.NOTARY_KEY_P8_BASE64 }}
+      NOTARY_KEY_ID: ${{ secrets.NOTARY_KEY_ID }}
+      NOTARY_ISSUER_ID: ${{ secrets.NOTARY_ISSUER_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # A fork has no signing secrets, so the job still has to produce a build.
+      # It just ships an ad hoc one.
+      - name: Look for signing credentials
+        id: signing
+        run: |
+          if [ -n "$P12" ] && [ -n "$NOTARY_KEY" ]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          elif [ "$GITHUB_REPOSITORY" = "PerfectoWeb/Gibson" ]; then
+            echo "signing secrets are missing, refusing to publish an ad hoc release"
+            exit 1
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "no signing secrets, releasing an ad hoc build"
+          fi
+
+      - name: Unlock a keychain holding the certificate
+        if: steps.signing.outputs.available == 'true'
+        run: |
+          KEYCHAIN="$RUNNER_TEMP/signing.keychain-db"
+          PASSPHRASE=$(uuidgen)
+          security create-keychain -p "$PASSPHRASE" "$KEYCHAIN"
+          security set-keychain-settings -lut 900 "$KEYCHAIN"
+          security unlock-keychain -p "$PASSPHRASE" "$KEYCHAIN"
+          printf '%s' "$P12" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+          security import "$RUNNER_TEMP/cert.p12" -k "$KEYCHAIN" -P "$P12_PASSWORD" \
+            -T /usr/bin/codesign -f pkcs12
+          security set-key-partition-list -S apple-tool:,apple:,codesign: \
+            -s -k "$PASSPHRASE" "$KEYCHAIN" > /dev/null
+          security list-keychains -d user -s "$KEYCHAIN" $(security list-keychains -d user | tr -d '"')
+          rm -f "$RUNNER_TEMP/cert.p12"
+          echo "KEYCHAIN=$KEYCHAIN" >> "$GITHUB_ENV"
+
+      - name: Build universal bundle
+        run: make
+
+      - name: Sign, notarise and staple
+        if: steps.signing.outputs.available == 'true'
+        run: |
+          printf '%s' "$NOTARY_KEY" | base64 --decode > "$RUNNER_TEMP/notary.p8"
+          DIST_ID=$(security find-identity -v -p codesigning "$KEYCHAIN" \
+            | grep 'Developer ID Application' | head -1 | sed -E 's/.*"(.*)"/\1/')
+          test -n "$DIST_ID"
+          make dist DIST_ID="$DIST_ID" NOTARY_ARGS="--key $RUNNER_TEMP/notary.p8 \
+            --key-id $NOTARY_KEY_ID --issuer $NOTARY_ISSUER_ID"
+          rm -f "$RUNNER_TEMP/notary.p8"
+
+      - name: Package the ad hoc build
+        if: steps.signing.outputs.available != 'true'
+        run: ditto -c -k --keepParent build/Gibson.saver build/Gibson.saver.zip
+
+      - name: Verify what is about to ship
+        run: |
+          test -f build/Gibson.saver/Contents/MacOS/Gibson
+          lipo -info build/Gibson.saver/Contents/MacOS/Gibson
+          codesign --verify --strict --verbose=2 build/Gibson.saver
+          codesign -dvv build/Gibson.saver 2>&1 | grep -E 'Authority|TeamIdentifier|flags'
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/Gibson.saver.zip
+          generate_release_notes: true
+          body: |
+            Download `Gibson.saver.zip`, unzip it and double click `Gibson.saver`.
+            Choose whether to install it for yourself or for everyone, then open
+            System Settings, go to Wallpaper, click **Screen Saver…**, set **Use
+            Screen Saver** to **Custom** and pick Gibson at the bottom.
+
+            The bundle is signed with a Developer ID and notarised by Apple, so
+            macOS opens it without any extra steps. Screenshots of every dialog
+            are in [docs/INSTALL.md](https://github.com/PerfectoWeb/Gibson/blob/main/docs/INSTALL.md).
+
+      - name: Remove the keychain
+        if: always() && steps.signing.outputs.available == 'true'
+        run: security delete-keychain "$RUNNER_TEMP/signing.keychain-db" || true

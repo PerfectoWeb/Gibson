@@ -1,0 +1,14 @@
+--swiftversion 5.9
+--maxwidth 110
+--indent 4
+--wraparguments before-first
+--wrapparameters before-first
+--wrapcollections preserve
+--commas always
+--trimwhitespace always
+--stripunusedargs closure-only
+--self remove
+--importgrouping alphabetized
+
+--disable redundantReturn, wrapMultilineStatementBraces
+--exclude build,.build
