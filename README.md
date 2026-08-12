@@ -19,7 +19,12 @@ Except half of it is real. The process table, CPU load, memory pressure, disk us
 
 <br>
 
-[<img src="docs/images/download.png" alt="Download Gibson for macOS" width="420">](https://github.com/PerfectoWeb/Gibson/releases/latest/download/Gibson.saver.zip)
+<a href="https://github.com/PerfectoWeb/Gibson/releases/latest/download/Gibson.saver.zip">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/download-dark.png">
+    <img src="docs/images/download-light.png" alt="Download Gibson for macOS" width="420">
+  </picture>
+</a>
 
 **No terminal, no account, nothing to sign up for.** Unzip, double click, then
 pick Gibson in System Settings.

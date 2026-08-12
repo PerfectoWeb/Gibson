@@ -110,7 +110,7 @@ $(BUILD)/social: $(SOURCES) $(SOCIAL_SOURCE)
 
 # Download button at the top of the README.
 button: $(BUILD)/button
-	$(BUILD)/button docs/images/download.png
+	$(BUILD)/button docs/images/download-dark.png docs/images/download-light.png
 
 $(BUILD)/button: $(SOURCES) $(BUTTON_SOURCE)
 	@mkdir -p $(BUILD)
