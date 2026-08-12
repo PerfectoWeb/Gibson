@@ -26,6 +26,9 @@ Preferences.shared.save()
 
 private let frame = NSRect(x: 0, y: 0, width: width, height: height)
 guard let view = GibsonView(frame: frame, isPreview: false) else { exit(1) }
+// This window is never brought to the front, and a saver that skips hidden
+// frames would draw an empty card.
+view.pausesWhenHidden = false
 private let window = NSWindow(contentRect: frame, styleMask: [.borderless],
                               backing: .buffered, defer: false)
 window.contentView = view

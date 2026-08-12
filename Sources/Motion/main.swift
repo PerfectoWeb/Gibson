@@ -32,6 +32,9 @@ if let name = ProcessInfo.processInfo.environment["GIBSON_PALETTE"],
 let frame = NSRect(x: 0, y: 0, width: width, height: height)
 let window = NSWindow(contentRect: frame, styleMask: [.borderless], backing: .buffered, defer: false)
 guard let view = GibsonView(frame: frame, isPreview: false) else { exit(1) }
+// This window is never brought to the front, and a saver that skips hidden
+// frames would record an empty picture.
+view.pausesWhenHidden = false
 window.contentView = view
 window.orderBack(nil)
 view.layoutSubtreeIfNeeded()

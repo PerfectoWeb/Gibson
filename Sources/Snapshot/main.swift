@@ -33,6 +33,9 @@ let window = NSWindow(contentRect: frame, styleMask: [.borderless],
 guard let view = GibsonView(frame: frame, isPreview: false) else {
     exit(1)
 }
+// This window is never brought to the front, and a saver that skips hidden
+// frames would hand back an empty picture.
+view.pausesWhenHidden = false
 window.contentView = view
 window.orderBack(nil)
 

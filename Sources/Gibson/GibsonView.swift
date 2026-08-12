@@ -141,8 +141,25 @@ final class GibsonView: ScreenSaverView {
 
     // MARK: - Frame loop
 
+    /// The offscreen artwork tools drive the frame loop by hand from windows
+    /// they never bring to the front, so they turn this off.
+    var pausesWhenHidden = true
+
+    /// macOS does not always tear down `legacyScreenSaver` once the screen is
+    /// unlocked. The host keeps calling us, the window sits behind everything
+    /// the user is working in, and a saver that keeps drawing burns a core for
+    /// nothing. Nobody is looking at pixels that are not on screen.
+    private var isOnScreen: Bool {
+        guard pausesWhenHidden, let window else { return true }
+        return window.occlusionState.contains(.visible)
+    }
+
     override func animateOneFrame() {
         super.animateOneFrame()
+        guard isOnScreen else {
+            setMonitor(running: false)
+            return
+        }
         let time = elapsed
         let context = RenderContext(
             theme: theme,

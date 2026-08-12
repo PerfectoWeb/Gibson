@@ -6,6 +6,14 @@ All notable changes are recorded here. The format follows
 
 ## [Unreleased]
 
+### Fixed
+
+- Stop drawing while the saver is not on screen. macOS does not always tear
+  `legacyScreenSaver` down after an unlock, and a saver that keeps rendering
+  behind the user's windows costs a core for pixels nobody sees. Frames are now
+  skipped, and the sampler released, whenever the host window reports itself
+  occluded.
+
 ### Added
 
 - Homebrew cask in [perfectoweb/tap](https://github.com/PerfectoWeb/homebrew-tap),
