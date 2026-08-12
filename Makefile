@@ -42,7 +42,9 @@ $(BUILD)/%/$(BUNDLE): $(SOURCES)
 	$(SWIFTC) $(COMMON) $(RELEASE) -parse-as-library -emit-library \
 		-target $*-apple-macos$(TARGET_OS) -o $@ $(SOURCES)
 
-$(BUILD)/$(PRODUCT): $(SLICES) Resources/Info.plist
+# Depends on the Makefile too: VERSION lives here, and a bump has to reach
+# the bundle without a clean build.
+$(BUILD)/$(PRODUCT): $(SLICES) Resources/Info.plist Makefile
 	@rm -rf $@
 	@mkdir -p $@/Contents/MacOS $@/Contents/Resources
 	lipo -create $(SLICES) -output $@/Contents/MacOS/$(BUNDLE)
