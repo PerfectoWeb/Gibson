@@ -6,6 +6,8 @@ All notable changes are recorded here. The format follows
 
 ## [Unreleased]
 
+## [1.0.2] - 2026-08-10
+
 ### Fixed
 
 - Stop drawing while the saver is not on screen. macOS does not always tear
@@ -13,25 +15,19 @@ All notable changes are recorded here. The format follows
   behind the user's windows costs a core for pixels nobody sees. Frames are now
   skipped, and the sampler released, whenever the host window reports itself
   occluded.
-
-### Added
-
-- Homebrew cask in [perfectoweb/tap](https://github.com/PerfectoWeb/homebrew-tap),
-  so installing is `brew install --cask perfectoweb/tap/gibson` and upgrades
-  come with everything else.
-
-### Fixed
-
 - The published screenshots were rendered with live readings, which put the
   machine that made them into the process table. Every artwork tool now forces
   synthetic readings and masking, and the images have been redrawn.
 
 ### Added
 
-- `make social` draws the repository card from a real frame of the running
-  saver.
+- Homebrew cask in [perfectoweb/tap](https://github.com/PerfectoWeb/homebrew-tap),
+  so installing is `brew install --cask perfectoweb/tap/gibson` and upgrades
+  come with everything else.
 - `SECURITY.md`, with the reporting channel and a plain account of what the
   saver reads and what it never does.
+- `make social` draws the repository card from a real frame of the running
+  saver.
 
 ## [1.0.1] - 2026-08-10
 
@@ -82,6 +78,7 @@ First public release.
   structure, architectures and signature. Tagging `v*` publishes a release with
   the zipped bundle attached.
 
-[Unreleased]: https://github.com/PerfectoWeb/Gibson/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/PerfectoWeb/Gibson/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/PerfectoWeb/Gibson/releases/tag/v1.0.2
 [1.0.1]: https://github.com/PerfectoWeb/Gibson/releases/tag/v1.0.1
 [1.0.0]: https://github.com/PerfectoWeb/Gibson/releases/tag/v1.0.0

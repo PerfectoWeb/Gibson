@@ -2,7 +2,7 @@
 
 BUNDLE      := Gibson
 PRODUCT     := $(BUNDLE).saver
-VERSION     := 1.0.1
+VERSION     := 1.0.2
 BUILD       := build
 TARGET_OS   := 14.0
 ARCHS       := arm64 x86_64
