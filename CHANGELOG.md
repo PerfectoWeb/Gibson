@@ -11,7 +11,6 @@ All notable changes are recorded here. The format follows
 - A download button at the top of the README, in a dark and a light variant so
   GitHub serves whichever matches the reader's theme. It points at the permanent
   link for the newest release, so it never has to be updated by hand.
-  `make button` redraws both.
 
 ## [1.0.2] - 2026-08-10
 

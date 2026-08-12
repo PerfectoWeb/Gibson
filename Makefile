@@ -13,7 +13,6 @@ COVER_SOURCE := Sources/Cover/main.swift
 BANNER_SOURCE := Sources/Support/GIFWriter.swift Sources/Banner/main.swift
 MOTION_SOURCE := Sources/Support/GIFWriter.swift Sources/Motion/main.swift
 SOCIAL_SOURCE := Sources/Social/main.swift
-BUTTON_SOURCE := Sources/Button/main.swift
 INSTALL_DIR := $(HOME)/Library/Screen Savers
 SIGN_ID     ?= -
 ZIP         := $(BUILD)/$(BUNDLE).saver.zip
@@ -34,7 +33,7 @@ RELEASE     := -O -wmo
 
 SLICES      := $(foreach arch,$(ARCHS),$(BUILD)/$(arch)/$(BUNDLE))
 
-.PHONY: all clean install uninstall demo preview reinstall lint screenshot cover banner motion social button dist
+.PHONY: all clean install uninstall demo preview reinstall lint screenshot cover banner motion social dist
 
 all: $(BUILD)/$(PRODUCT)
 
@@ -107,15 +106,6 @@ $(BUILD)/social: $(SOURCES) $(SOCIAL_SOURCE)
 	@mkdir -p $(BUILD)
 	$(SWIFTC) $(COMMON) -module-name GibsonSocial -Onone \
 		-target $(shell uname -m)-apple-macos$(TARGET_OS) -o $@ $(SOURCES) $(SOCIAL_SOURCE)
-
-# Download button at the top of the README.
-button: $(BUILD)/button
-	$(BUILD)/button docs/images/download-dark.png docs/images/download-light.png
-
-$(BUILD)/button: $(SOURCES) $(BUTTON_SOURCE)
-	@mkdir -p $(BUILD)
-	$(SWIFTC) $(COMMON) -module-name GibsonButton -Onone \
-		-target $(shell uname -m)-apple-macos$(TARGET_OS) -o $@ $(SOURCES) $(BUTTON_SOURCE)
 
 install: $(BUILD)/$(PRODUCT)
 	@mkdir -p "$(INSTALL_DIR)"

@@ -21,8 +21,8 @@ Except half of it is real. The process table, CPU load, memory pressure, disk us
 
 <a href="https://github.com/PerfectoWeb/Gibson/releases/latest/download/Gibson.saver.zip">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/images/download-dark.png">
-    <img src="docs/images/download-light.png" alt="Download Gibson for macOS" width="420">
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/download-dark.webp">
+    <img src="docs/images/download-light.png" alt="Download Gibson for macOS" width="280">
   </picture>
 </a>
 
