@@ -17,6 +17,16 @@ Except half of it is real. The process table, CPU load, memory pressure, disk us
 [![No dependencies](https://img.shields.io/badge/dependencies-none-1FBF6B)](#building-from-source)
 [![Homebrew](https://img.shields.io/badge/homebrew-perfectoweb%2Ftap-1FBF6B?logo=homebrew&logoColor=white)](https://github.com/PerfectoWeb/homebrew-tap)
 
+<br>
+
+[<img src="docs/images/download.png" alt="Download Gibson for macOS" width="420">](https://github.com/PerfectoWeb/Gibson/releases/latest/download/Gibson.saver.zip)
+
+**No terminal, no account, nothing to sign up for.** Unzip, double click, then
+pick Gibson in System Settings.
+[Every step, with screenshots](docs/INSTALL.md).
+
+Package manager instead? `brew install --cask perfectoweb/tap/gibson`
+
 </div>
 
 ![Gibson running](docs/images/dashboard.gif)
@@ -71,7 +81,7 @@ preferences, `brew uninstall --zap --cask gibson`.
 
 ### From a release
 
-1. Download `Gibson.saver.zip` from the [latest release](https://github.com/PerfectoWeb/Gibson/releases/latest)
+1. [Download `Gibson.saver.zip`](https://github.com/PerfectoWeb/Gibson/releases/latest/download/Gibson.saver.zip)
    and unzip it.
 2. Double click the bundle and choose whether to install it for yourself or for
    everyone on the machine.

@@ -9,7 +9,7 @@ opens them without any warnings. If you built the saver yourself, skip to
 
 ## 1. Download
 
-Grab `Gibson.saver.zip` from the [latest release](https://github.com/PerfectoWeb/Gibson/releases/latest)
+[Download `Gibson.saver.zip`](https://github.com/PerfectoWeb/Gibson/releases/latest/download/Gibson.saver.zip)
 and unzip it. Double click `Gibson.saver`.
 
 ## 2. Choose who gets it

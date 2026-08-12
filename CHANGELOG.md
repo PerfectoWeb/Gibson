@@ -6,6 +6,12 @@ All notable changes are recorded here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- A download button at the top of the README, pointing at the permanent link
+  for the newest release, so it never has to be updated by hand. `make button`
+  redraws it.
+
 ## [1.0.2] - 2026-08-10
 
 ### Fixed
