@@ -17,14 +17,14 @@ Except half of it is real. The process table, CPU load, memory pressure, disk us
 [![No dependencies](https://img.shields.io/badge/dependencies-none-1FBF6B)](#building-from-source)
 [![Homebrew](https://img.shields.io/badge/homebrew-perfectoweb%2Ftap-1FBF6B?logo=homebrew&logoColor=white)](https://github.com/PerfectoWeb/homebrew-tap)
 
-<br>
-
 <a href="https://github.com/PerfectoWeb/Gibson/releases/latest/download/Gibson.saver.zip">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/images/download-dark.webp">
     <img src="docs/images/download-light.png" alt="Download Gibson for macOS" width="240">
   </picture>
 </a>
+
+<br>
 
 **No terminal, no account, nothing to sign up for.** Unzip, double click, then
 pick Gibson in System Settings.
